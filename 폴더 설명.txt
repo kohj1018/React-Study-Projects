@@ -1,0 +1,5 @@
+node_modules : 라이브러리 모은 폴더
+public : static 파일 보관함
+src : 소스코드 보관함
+
+package.json : 설치한 라이브러리 목록
