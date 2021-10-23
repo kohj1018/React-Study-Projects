@@ -1,28 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 function App() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const onSubmit = (event) => {
-    event.preventDefault(); // form 태그에서는 submit할 때 자동으로 새로고침하는데 그 동작을 막아줌.
-    console.log(username, password)
-  }
+  const [count, setCount] = useState(0);
+  const [byoungwook, setByoungwook] = useState(0);
+  useEffect(() => {
+    console.log(count)
+  }, [count, byoungwook]) // 이렇게 뒤에 ,[변수] 적으면 해당 변수가 변할 때만 useEffect함수가 실행됨.
 
+  useEffect(() => {
+    console.log('first rendering')
+  }, []) // 이렇게 뒤에 빈 []를 넣으면 최초 1회만 실행되고 실행되지 않음.
+
+  const increment = () => {
+    setCount(count + 1);
+  }
   return (
     <div className="App">
-      <form onSubmit={onSubmit}>
-        <input 
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)} // e.target은 이 input을 가리킴
-        /><br />
-        <input
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        /><br />
-        <button type="submit">Login</button>
-      </form>
+      <h1>Byoungwook Koh</h1>
+      <button onClick={increment}>Click</button>
+      <button onClick={() => setByoungwook(byoungwook + 1)}>Click1</button>
     </div>
   );
 }
