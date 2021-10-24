@@ -1,24 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import Counter from './components/Counter';
 
 function App() {
-  const [count, setCount] = useState(0);
-  const [byoungwook, setByoungwook] = useState(0);
-  useEffect(() => {
-    console.log(count)
-  }, [count, byoungwook]) // 이렇게 뒤에 ,[변수] 적으면 해당 변수가 변할 때만 useEffect함수가 실행됨.
-
-  useEffect(() => {
-    console.log('first rendering')
-  }, []) // 이렇게 뒤에 빈 []를 넣으면 최초 1회만 실행되고 실행되지 않음.
-
-  const increment = () => {
-    setCount(count + 1);
-  }
+  const [buttonName, setButtonName] = useState('클릭');
+  const clickButton =  () => {
+    if (buttonName === '클릭') {
+      setButtonName('click2')
+    } else {
+      setButtonName('클릭')
+    }
+  };
   return (
     <div className="App">
       <h1>Byoungwook Koh</h1>
-      <button onClick={increment}>Click</button>
-      <button onClick={() => setByoungwook(byoungwook + 1)}>Click1</button>
+      <Counter click='click1'/>
+      <Counter click={buttonName}/>
+      <Counter/>
+      <br />
+      <button onClick={clickButton}>버튼 이름 변경</button>
     </div>
   );
 }
