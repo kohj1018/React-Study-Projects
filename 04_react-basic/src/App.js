@@ -1,22 +1,37 @@
 import React, { useState, useEffect } from 'react';
+import Movie from './components/Movie';
+import MovieForm from './components/MovieForm';
+import Navbar from './components/Navbar';
 
 function App() {
-  const movies = [
-    {title: 'Iron Man 1', year: 2008},
-    {title: 'Iron Man 2', year: 2010},
-    {title: 'Iron Man 3', year: 2013}
-  ];
-  const renderMovies = movies.map(movie => {
+  const [movies, setMovies] = useState([]);
+
+  const removeMovie = (id) => {
+    setMovies(movies.filter(movie => {  // js에서는 배열에 filter이라는 함수가 있는데 화살표 전에 변수에 iterative하게 배열의 값이 들어오고 그걸 아래 return 옆의 비교연산자를 통해 true가 되는 것만 return 받아 새로 배열을 만드는 것이다.
+      return movie.id !== id;
+    }));
+  };
+
+  const renderMovies = movies.length ? movies.map(movie => {
     return(
-      <div className="movie" key={movie.title}>
-        <div className="movie-title">{movie.title}</div>
-        <div className="movie-year">{movie.year}</div>
-      </div>
+      <Movie 
+        movie={movie} 
+        key={movie.id}
+        removeMovie={removeMovie}
+      />
     );
-  });
+  }) : '추가된 영화가 없습니다.';
+  const addMovie = (movie) => {
+    setMovies([
+      ...movies,  // 기존의 movies에 있던 값들이 온다.
+      movie
+    ]);
+  };
   return (
     <div className="App">
+      <Navbar />
       <h1>Movie list</h1>
+      <MovieForm addMovie={addMovie} />
       {renderMovies}
     </div>
   );
